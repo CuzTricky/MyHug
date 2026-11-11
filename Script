@@ -277,13 +277,14 @@ end)
 -- ===== Visuals tab =====
 do
     local L, R = addTab("Visuals", "Camera", "Lighting")
+    addSlider(L, "Field of view", 30, 120, 70, 1, "", function(v) fovValue = v end)
+    addSlider(L, "Max zoom distance", 10, 500, 128, 1, "", function(v) LP.CameraMaxZoomDistance = v end)
     addToggle(L, "Enable FOV changer", false, function(v)
         fovOn = v
         if not v and Camera then Camera.FieldOfView = 70 end
     end)
-    addSlider(L, "Field of view", 30, 120, 70, 1, "", function(v) fovValue = v end)
-    addSlider(L, "Max zoom distance", 10, 500, 128, 1, "", function(v) LP.CameraMaxZoomDistance = v end)
 
+    addSlider(R, "Time of day", 0, 24, 14, 1, "h", function(v) Lighting.ClockTime = v end)
     addToggle(R, "Fullbright", false, function(v)
         if v then
             Lighting.Brightness = 2
@@ -297,7 +298,6 @@ do
     addToggle(R, "Remove fog", false, function(v)
         Lighting.FogEnd = v and 1e6 or origLighting.FogEnd
     end)
-    addSlider(R, "Time of day", 0, 24, 14, 1, "h", function(v) Lighting.ClockTime = v end)
 end
 
 -- ===== World tab =====
